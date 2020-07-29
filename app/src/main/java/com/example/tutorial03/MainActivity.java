@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,18 +13,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
+    EditText Email;
+    EditText Password;
 
-    final EditText Email=(EditText)findViewById(R.id.edtEmail);
-    final EditText Password=(EditText)findViewById(R.id.edtPassword);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Email=(EditText)findViewById(R.id.edtEmail);
+        Password=(EditText)findViewById(R.id.edtPassword);
 
         button = (Button)findViewById(R.id.btnLogin);
 
@@ -31,16 +34,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkDataEntered();
-                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
 
-                    startActivity(intent);
             }
         });
     }
     void checkDataEntered(){
+
         if(isEmpty(Email)) {
             Toast t = Toast.makeText(this,"You must enter Username",Toast.LENGTH_SHORT);
             t.show();
+        }
+        else if(isEmpty(Password)) {
+            Toast t = Toast.makeText(this,"You must enter Password",Toast.LENGTH_SHORT);
+            t.show();
+        } else if(!isEmail(Email)){
+            Email.setError("Enter valid email");
+            Toast t = Toast.makeText(this,"Enter valid Email address",Toast.LENGTH_SHORT);
+            t.show();
+        } else if(!Email.getText().toString().equals("admin@gmail.com")){
+            Email.setError("Enter valid username");
+            Toast t = Toast.makeText(this,"Enter valid username",Toast.LENGTH_SHORT);
+            t.show();
+        } else if(!Password.getText().toString().equals("admin")){
+            Password.setError("Enter valid password");
+            Toast t = Toast.makeText(this,"Enter valid password",Toast.LENGTH_SHORT);
+            t.show();
+        }else{
+            Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+            startActivity(intent);
         }
     }
     public boolean isEmpty(EditText text){
@@ -48,4 +69,8 @@ public class MainActivity extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
 
+    public boolean isEmail(EditText text){
+        CharSequence email = text.getText().toString();
+        return (Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
 }
