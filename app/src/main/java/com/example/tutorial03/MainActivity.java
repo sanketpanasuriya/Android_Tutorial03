@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
-
 public class MainActivity extends AppCompatActivity {
     private Button button;
     EditText Email;
