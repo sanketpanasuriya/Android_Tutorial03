@@ -11,10 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Pattern;
-
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private Button button;
     EditText Email;
     EditText Password;
@@ -30,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
                 checkDataEntered();
             }
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             Toast t = Toast.makeText(this,"Enter valid password",Toast.LENGTH_SHORT);
             t.show();
         }else{
-            Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+            Intent intent = new Intent(LoginActivity.this, WecomeActivity.class);
             startActivity(intent);
         }
     }
