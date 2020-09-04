@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             Intent intent = new Intent(LoginActivity.this, WecomeActivity.class);
             startActivity(intent);
+            finish();
         }
     }
     public boolean isEmpty(EditText text){
